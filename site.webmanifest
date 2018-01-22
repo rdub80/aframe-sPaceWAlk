@@ -6,7 +6,6 @@
   "display": "fullscreen",
   "theme_color": "#04324a",
   "background_color": "#04324a",
-  "start_url": "index.html?launcher=homescreen",
   "icons": [{
     "src": "icon-128x128.png",
     "type": "image/png",
