@@ -1,0 +1,36 @@
+{
+  "name": "A-Frame sPaceWAlk",
+  "short_name": "sPaceWAlk",
+  "description": "A Progressive Web App featuring A-Frame VR in Space",
+  "lang": "en-US",
+  "display": "fullscreen",
+  "theme_color": "#222222",
+  "background_color": "#222222",
+  "start_url": "index.html?launcher=homescreen",
+  "icons": [{
+    "src": "icon-128x128.png",
+    "type": "image/png",
+    "sizes": "128x128"
+  }, {
+    "src": "apple-touch-icon.png",
+    "type": "image/png",
+    "sizes": "152x152"
+  }, {
+    "src": "ms-touch-icon-144x144-precomposed.png",
+    "type": "image/png",
+    "sizes": "144x144"
+  }, {
+    "src": "chrome-touch-icon-192x192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }, {
+    "src": "background.png",
+    "type": "image/png",
+    "sizes": "512x512"  
+  }, {
+    "src": "icon.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }],
+  "start_url": "."
+}
