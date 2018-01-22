@@ -31,12 +31,26 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
 
-        <!-- Add your site or application content here -->
-
-        <a-scene>
+        <!-- Loading Progress -->
+        <div id="loader" class="loadscreen-overlay" data-total="0" data-current="0">
+            <div class="overlay-content">
+                <section class="column">
+                    <h1>s<strong>P</strong>ace<strong>WA</strong>lk</h1>
+                    <h2>A Progressive Web App featuring A-Frame VR in Space</h2>
+                    <img src="tile-wide.png" alt="sPaceWAlk Icon">
+                    <div id="progressBar">
+                        <div id="progress"></div>
+                    </div>
+                    <button id="enterBtn">Get Started</button>
+                </section>
+            </div>
+        </div>
+        <a-scene style="display:none;">
             <a-assets>
-                <img id="space" src="assets/space.png">
-                <img id="earth" src="assets/earth.png">
+                <img id="space" src="assets/space.jpg">
+                <img id="earth-color" src="assets/earth-color.jpg">
+                <img id="earth-normal" src="assets/earth-normal.png">
+                <img id="earth-bump" src="assets/earth-bump.jpg">
                 <img id="spstob_1" src="assets/spstob_1.jpg">
                 <img id="spstob_2" src="assets/spstob_2.jpg">
                 <img id="spstob_3" src="assets/spstob_3.jpg">
@@ -48,7 +62,7 @@
 
             <a-entity obj-model="obj: #shuttle-obj; mtl: #shuttle-mtl" position="-2 -1 -10" rotation="120 30 30" scale="0.005 0.005 0.005"></a-entity>
 
-            <a-sphere radius="70" position="20 -20 -95" material="src:#earth;">
+            <a-sphere radius="70" position="20 -20 -95" material="src:#earth-color; normalMap:#earth-normal; displacementMap:#earth-bump" segments-height="30" segments-width="30" >
                 <a-animation attribute="rotation"
                     dur="180000"
                     fill="forwards"
@@ -65,5 +79,96 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+            
+        <script type="text/javascript">
+        // LOADING START -------
+
+        var scene = document.querySelector('a-scene');
+        var images = document.querySelectorAll("img");
+        var manageAssets = document.querySelector("a-assets");
+        var loader = document.querySelector("#loader");
+        var total = images.length;
+
+        loader.setAttribute("data-total", total);
+        loader.style.display = "inline";
+
+        manageAssets.addEventListener("loaded", loadingFinished);
+
+        if (images) {
+            for (var i = 0; i < images.length; i++) {
+                images[i].addEventListener("load", updateProgressBar);
+            }
+        }
+
+        function updateProgressBar() {
+            var loader = document.querySelector("#loader");
+
+            if (loader) {
+                var total = parseInt(loader.getAttribute("data-total"));
+                var current = parseInt(loader.getAttribute("data-current"));
+                current = current + 1;
+                loader.setAttribute("data-current", current);
+
+                var progressPercent = document.querySelector("#progressPercent");
+                if (progressPercent) {
+                    progressPercent.innerText = Math.round(current / total * 100) + "%";
+                    progressPercent.style.color = "#000";
+                }
+
+                var progress = document.querySelector("#progress");
+                if (progress) {
+                    progress.style.width = parseInt(Math.round(current / total * 100)) + "px";
+                }
+            }
+        }
+
+        function loadingFinished() {
+            var progressPercent = document.querySelector("#progressPercent");
+            var progressBar = document.querySelector("#progressBar");
+            var enterVRBtn = document.querySelector("#enterBtn");
+
+            if (progressPercent) {
+                progressPercent.style.display = "none";
+            }
+            if (progressBar) {
+                progressBar.style.display = "none";
+            }
+            if (enterVRBtn) {
+                enterVRBtn.style.display = "inline-block";
+            }
+        }
+
+        function removeLandingScreen() {
+            var loader = document.querySelector("#loader");
+            var scene = document.querySelector("a-scene");
+
+            if (loader) {
+                loader.parentNode.removeChild(loader);
+                scene.style.display = "block";
+            }
+        }
+
+        function setPixelRatio() {
+            scene.addEventListener('enter-vr', function() {
+                scene.renderer.setPixelRatio(1);
+            });
+        }
+
+        if (scene.hasLoaded) {
+            readyForVR();
+        } else {
+            scene.addEventListener('loaded', readyForVR);
+        }
+
+        function readyForVR() {
+            var enterBtn = document.querySelector("#enterBtn");
+            if (enterBtn) {
+                enterBtn.addEventListener("click", removeLandingScreen);
+            }
+        }
+
+        // LOADING END -------
+        </script>
+
     </body>
 </html>
