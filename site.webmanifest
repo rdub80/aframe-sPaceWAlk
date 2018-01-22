@@ -4,8 +4,8 @@
   "description": "A Progressive Web App featuring A-Frame VR in Space",
   "lang": "en-US",
   "display": "fullscreen",
-  "theme_color": "#222222",
-  "background_color": "#222222",
+  "theme_color": "#04324a",
+  "background_color": "#04324a",
   "start_url": "index.html?launcher=homescreen",
   "icons": [{
     "src": "icon-128x128.png",

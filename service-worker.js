@@ -11,6 +11,7 @@ var cacheFiles = [
 	'./js/main.js',
 	'./css/normalize.css',
 	'./css/main.css',
+    './assets/tile-wide.png',
     './assets/space.jpg',
     './assets/earth-color.jpg',
     './assets/earth-normal.png',
